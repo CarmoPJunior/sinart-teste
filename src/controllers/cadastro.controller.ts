@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import db from "../models";
 
 class CadastroController {
 // route.post("/client", async (req, res, next) => {
@@ -19,6 +20,8 @@ class CadastroController {
       // if (!user) {
       //   return res.sendStatus(StatusCodes.NO_CONTENT);
       // }
+
+      db.User.findAll().then((result: object) => res.json(result)).catch((err: object) => console.error(err));
 
       return res.status(StatusCodes.OK).json({});
     } catch (error) {
