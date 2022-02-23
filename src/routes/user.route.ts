@@ -1,10 +1,10 @@
 import { Router } from "express";
-import CadastroController from "../controllers/cadastro.controller";
+import UserController from "../controllers/user.controller";
 
 const route = Router();
 
-// const controller = require('../controllers/personController')
-route.get("/", CadastroController.index);
+route.get("/", UserController.index);
+route.get("/:id", UserController.findById);
 // route.post('/', controller.post);
 // route.put('/:id', controller.put);
 // route.delete('/:id', controller.delete);
