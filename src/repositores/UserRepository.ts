@@ -18,6 +18,14 @@ class UserRepository {
       throw new DatabaseError({ log: "Erro ao buscar usuário por id!", data: error });
     }
   }
+
+  async findByLogin (login: string): Promise<User | undefined> {
+    try {
+      return await getRepository(User).findOne({ login });
+    } catch (error) {
+      throw new DatabaseError({ log: "Erro ao buscar usuários!", data: error });
+    }
+  }
 }
 
 export default new UserRepository();

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import UserRepository from "../repositores/UserRepository";
+import LoginService from "../services/login.service";
 
 class UserController {
   async index (req: Request, res: Response, next: NextFunction) {
@@ -27,6 +28,26 @@ class UserController {
       }
 
       return res.status(StatusCodes.OK).json({ user: result });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async login (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { login, senha } = req.body;
+
+      const result = await LoginService.logar({ login, senha });
+
+      if (result instanceof Error) {
+        return res.status(StatusCodes.BAD_GATEWAY).json(result.message);
+      }
+
+      return res.status(StatusCodes.OK).json(
+        {
+          message: "Autenticação realizada com sucesso!",
+          token: result
+        });
     } catch (error) {
       return next(error);
     }
